@@ -7,9 +7,6 @@ import org.apache.commons.io.FileUtils;
 import java.io.File;
 import java.nio.charset.Charset;
 
-import org.kohsuke.github.GitHub;
-import org.kohsuke.github.GitHubBuilder;
-
 /**
  * @author: 百岁（baisui@qlangtech.com）
  * @create: 2022-10-20 09:29
@@ -17,8 +14,8 @@ import org.kohsuke.github.GitHubBuilder;
 public class Main {
 
     static final TisRepo[] tisRelsRepo = new TisRepo[]{
-            $("qlangtech/tis")
-            , $("qlangtech/plugins")
+            $("qlangtech/tis").shallExtractIssues()
+            , $("qlangtech/plugins").shallExtractIssues()
             , $("qlangtech/ng-tis")
             , $("qlangtech/tis-ansible")
             , $("qlangtech/update-center2")
@@ -29,20 +26,26 @@ public class Main {
             //  , $("qlangtech/tis-doc")
             , $("qlangtech/hudi", "tis-release-0.10.1")};
 
+
+//    static final TisRepo[] tisRelsRepo = new TisRepo[]{
+//            $("qlangtech/tis-ansible")
+//    };
+
     /**
      * https://github-api.kohsuke.org/index.html
      */
     public static void main(String[] args) throws Exception {
         // GitHub github = GitHub.connect();
         // Once your ~/.github property file is properly configured, you can obtain a GitHub instance using
-        GitHub github = GitHubBuilder.fromPropertyFile().build();
+        GenerateChangList changList = new GenerateChangList();
 
-        final String tagName = "v3.6.0-alpha";
+        // final String tagName = "v3.6.0-alpha";
+        TISVersion tagName = GenerateChangList.tagName;
         final String releaseBody = FileUtils.readFileToString(new File("release/" + tagName + ".md"), Charset.forName("utf8"));
         // GHRepository repo = github.getRepository("baisui1981/tisearch");
 
         for (TisRepo tisRepo : tisRelsRepo) {
-            tisRepo.initialize(github, tagName, releaseBody);
+            tisRepo.initialize(changList.getGithub(), tagName, releaseBody);
         }
 
         for (TisRepo tisRepo : tisRelsRepo) {
