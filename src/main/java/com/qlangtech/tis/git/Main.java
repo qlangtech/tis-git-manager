@@ -25,7 +25,7 @@ public class Main {
             , $("qlangtech/chunjun", "tis-v1.12.5")
             //  , $("qlangtech/tis-doc")
             , $("qlangtech/hudi", "tis-release-0.10.1")
-            , $("qlangtech/zeppelin", "tis-v0.10.1")};
+             , $("qlangtech/zeppelin", "tis-v0.10.1")};
 
 
 //    static final TisRepo[] tisRelsRepo = new TisRepo[]{
