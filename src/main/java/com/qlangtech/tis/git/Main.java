@@ -17,14 +17,15 @@ public class Main {
             $("qlangtech/tis").shallExtractIssues()
             , $("qlangtech/plugins").shallExtractIssues()
             , $("qlangtech/ng-tis")
-            , $("qlangtech/tis-ansible")
+            //, $("qlangtech/tis-ansible")
             , $("qlangtech/update-center2")
             , $("qlangtech/DataX")
             , $("baisui1981/tis-logback-flume-appender")
             , $("qlangtech/flink", "tis-1.13.1")
             , $("qlangtech/chunjun", "tis-v1.12.5")
             //  , $("qlangtech/tis-doc")
-            , $("qlangtech/hudi", "tis-release-0.10.1")};
+            , $("qlangtech/hudi", "tis-release-0.10.1")
+            , $("qlangtech/zeppelin", "tis-v0.10.1")};
 
 
 //    static final TisRepo[] tisRelsRepo = new TisRepo[]{

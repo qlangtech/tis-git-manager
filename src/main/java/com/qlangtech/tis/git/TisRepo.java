@@ -125,8 +125,8 @@ public class TisRepo {
         List<TISIssue> group = null;
         try {
             Set<String> acceptLabels = new HashSet<>();
-            acceptLabels.add("3.6.0");
-            acceptLabels.add("3.5.0");
+           // acceptLabels.add("3.6.0");
+           // acceptLabels.add("3.5.0");
             acceptLabels.add("3.6.0-alpha");
             List<GHIssue> issues = repo.getIssues(GHIssueState.ALL);
 
