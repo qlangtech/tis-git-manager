@@ -1,5 +1,7 @@
 package com.qlangtech.tis.git;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -14,11 +16,13 @@ import org.kohsuke.github.GHBranch;
 import org.kohsuke.github.GHIssue;
 import org.kohsuke.github.GHIssueState;
 import org.kohsuke.github.GHLabel;
+import org.kohsuke.github.GHMilestone;
 import org.kohsuke.github.GHRef;
 import org.kohsuke.github.GHReleaseBuilder;
 import org.kohsuke.github.GHRepository;
 import org.kohsuke.github.GHTagObject;
 import org.kohsuke.github.GitHub;
+import org.kohsuke.github.PagedIterable;
 
 /**
  * @author: 百岁（baisui@qlangtech.com）
@@ -33,6 +37,7 @@ public class TisRepo {
     private GHRepository repo;
     private TISVersion tagName;
     private String releaseBody;
+    private GHMilestone milestone;
 
     private boolean extractIssues = false;
 
@@ -55,6 +60,19 @@ public class TisRepo {
 
     public void initialize(GitHub github, TISVersion tagName, String releaseBody) throws IOException {
         this.repo = github.getRepository(this.repository);
+
+        if (this.isExtractIssues()) {
+            // 说明是主工程
+            PagedIterable<GHMilestone> mit
+                    = this.repo.listMilestones(GHIssueState.OPEN);
+            for (GHMilestone ms : mit) {
+                if (StringUtils.equals(ms.getTitle(), tagName.getVersion())) {
+                    this.milestone = ms;
+                    break;
+                }
+            }
+            Objects.requireNonNull(milestone, "milestone:" + tagName + ",repository:" + this.repository + " can not be null");
+        }
         this.currnetBranch = this.repo.getBranch(this.workBranch);
         Objects.requireNonNull(this.currnetBranch
                 , "workBranch:" + workBranch + " relevant branch can not be null");
@@ -71,6 +89,7 @@ public class TisRepo {
         this.extractIssues = true;
         return this;
     }
+
 
     public void createTag(TISVersion newTagName) throws IOException {
         GHTagObject tag = repo.createTag(newTagName.getVersion()
@@ -124,24 +143,25 @@ public class TisRepo {
         IssueCategory category = null;
         List<TISIssue> group = null;
         try {
-            Set<String> acceptLabels = new HashSet<>();
-           // acceptLabels.add("3.6.0");
-           // acceptLabels.add("3.5.0");
-            acceptLabels.add("3.6.0-alpha");
-            List<GHIssue> issues = repo.getIssues(GHIssueState.ALL);
+          //  Set<String> acceptLabels = new HashSet<>();
+            // acceptLabels.add("3.6.0");
+            // acceptLabels.add("3.5.0");
 
+           // acceptLabels.add(GenerateChangList.tagName.versionNum);
+
+            List<GHIssue> issues = repo.getIssues(GHIssueState.ALL, this.milestone);
 
             for (GHIssue issue : issues) {
-                boolean skip = true;
+              //  boolean skip = true;
                 category = IssueCategory.parse(issue);
-                for (GHLabel label : issue.getLabels()) {
-                    if (acceptLabels.contains(label.getName())) {
-                        skip = false;
-                    }
-                }
-                if (skip) {
-                    continue;
-                }
+//                for (GHLabel label : issue.getLabels()) {
+//                    if (acceptLabels.contains(label.getName())) {
+//                        skip = false;
+//                    }
+//                }
+//                if (skip) {
+//                    continue;
+//                }
                 tisIssue = new TISIssue(issue);
                 group = result.get(category);
                 if (group == null) {
@@ -163,7 +183,7 @@ public class TisRepo {
         release.name("Release " + tagName);
         release.body(releaseBody);
         release.commitish(this.currnetBranch.getSHA1());
-        release.prerelease(true);
+        release.prerelease(false);
         release.draft(false);
         release.create();
 

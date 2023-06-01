@@ -15,17 +15,17 @@ public class Main {
 
     static final TisRepo[] tisRelsRepo = new TisRepo[]{
             $("qlangtech/tis").shallExtractIssues()
-            , $("qlangtech/plugins").shallExtractIssues()
+            , $("qlangtech/plugins")//.shallExtractIssues()
             , $("qlangtech/ng-tis")
-            //, $("qlangtech/tis-ansible")
+            , $("qlangtech/tis-ansible")
             , $("qlangtech/update-center2")
             , $("qlangtech/DataX")
-            , $("baisui1981/tis-logback-flume-appender")
+          //  , $("baisui1981/tis-logback-flume-appender")
             , $("qlangtech/flink", "tis-1.13.1")
             , $("qlangtech/chunjun", "tis-v1.12.5")
-            //  , $("qlangtech/tis-doc")
+            , $("qlangtech/tis-doc")
             , $("qlangtech/hudi", "tis-release-0.10.1")
-             , $("qlangtech/zeppelin", "tis-v0.10.1")};
+            , $("qlangtech/zeppelin", "tis-v0.10.1")};
 
 
 //    static final TisRepo[] tisRelsRepo = new TisRepo[]{
@@ -41,22 +41,25 @@ public class Main {
         GenerateChangList changList = new GenerateChangList();
 
         // final String tagName = "v3.6.0-alpha";
+        System.out.println("Start Release Version:"+ GenerateChangList.tagName);
         TISVersion tagName = GenerateChangList.tagName;
         final String releaseBody = FileUtils.readFileToString(new File("release/" + tagName + ".md"), Charset.forName("utf8"));
         // GHRepository repo = github.getRepository("baisui1981/tisearch");
-
+        System.out.println("1. Initialize");
         for (TisRepo tisRepo : tisRelsRepo) {
             tisRepo.initialize(changList.getGithub(), tagName, releaseBody);
         }
 
+        System.out.println("2. Create Tag");
         for (TisRepo tisRepo : tisRelsRepo) {
             tisRepo.createTag(tagName);
         }
 
+        System.out.println("3. Publish Release");
         for (TisRepo tisRepo : tisRelsRepo) {
             tisRepo.publishRelease();
         }
-
+        System.out.println("Successful Release Version:"+ GenerateChangList.tagName);
 //        GHRepository repo = github.createRepository(
 //                "new-repository", "this is my new repository",
 //                "https://github.com/ben2077/tisearch", true/*public*/);

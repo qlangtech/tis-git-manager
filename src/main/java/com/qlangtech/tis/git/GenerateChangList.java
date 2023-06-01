@@ -16,7 +16,7 @@ import com.qlangtech.tis.git.TisRepo.TISIssue;
  * @create: 2022-10-20 13:45
  **/
 public class GenerateChangList {
-    public static final TISVersion tagName = new TISVersion("v3.6.0");
+    public static final TISVersion tagName = new TISVersion("v3.7.2");
 
     private final GitHub github;
 
@@ -45,7 +45,7 @@ public class GenerateChangList {
             if (!repo.isExtractIssues()) {
                 continue;
             }
-            repo.initialize(this.getGithub(), null, null);
+            repo.initialize(this.getGithub(), GenerateChangList.tagName, null);
         }
         for (TisRepo repo : Main.tisRelsRepo) {
             if (repo.isExtractIssues()) {
@@ -73,11 +73,14 @@ public class GenerateChangList {
 
         content.append("* [").append("TIS Package").append("](")
                 .append("http://tis-release.oss-cn-beijing.aliyuncs.com/").append(tagName.versionNum).append("/tis/tis-uber.tar.gz").append(") ");
-        content.append("[安装说明](http://tis.pub/docs/install/tis/uber/)\n");
+        content.append("[安装说明](https://tis.pub/docs/install/tis/uber/)\n");
 
         content.append("* [").append("TIS Flink Standalone Package").append("](")
                 .append("http://tis-release.oss-cn-beijing.aliyuncs.com/").append(tagName.versionNum).append("/tis/flink-tis-1.13.1-bin.tar.gz").append(") ");
-        content.append("[安装说明](http://tis.pub/docs/install/flink-cluster/standalone/)\n");
+        content.append("[安装说明](https://tis.pub/docs/install/flink-cluster/standalone/)\n");
+
+        content.append("* ").append("TIS Zeppeline NoteBook Installation");
+        content.append("[安装说明](https://tis.pub/docs/install/zeppelin)\n");
 
 
         content.append("\n## ").append("Related Projects").append("\n\n");
