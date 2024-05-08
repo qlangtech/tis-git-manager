@@ -16,7 +16,7 @@ import com.qlangtech.tis.git.TisRepo.TISIssue;
  * @create: 2022-10-20 13:45
  **/
 public class GenerateChangList {
-    public static final TISVersion tagName = new TISVersion("v3.7.2");
+    public static final TISVersion tagName = new TISVersion("v4.0.0");
 
     private final GitHub github;
 

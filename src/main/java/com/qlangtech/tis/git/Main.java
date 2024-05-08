@@ -18,6 +18,7 @@ public class Main {
             , $("qlangtech/plugins")//.shallExtractIssues()
             , $("qlangtech/ng-tis")
             , $("qlangtech/tis-ansible")
+            , $("qlangtech/tis-git-manager")
             , $("qlangtech/update-center2")
             , $("qlangtech/DataX")
           //  , $("baisui1981/tis-logback-flume-appender")
