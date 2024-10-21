@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.util.Optional;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,11 +15,16 @@ import java.util.regex.Pattern;
  * @create: 2022-10-20 18:02
  **/
 public class TISVersion {
-    private static final Pattern PATTERN_VER = Pattern.compile("v(.+)");
+    private static final Pattern PATTERN_VER = Pattern.compile("[vV](.+)");
     private final String version;
     public final String versionNum;
     public static final Charset utf8 = Charset.forName("utf8");
     private final String releaseVersion;
+
+    /**
+     * 每次发布的预发布版本，alpha、beta，rc1 等等
+     */
+    private final Optional<String> candidateVerion;
 
     private File getReleaseNoteFile() {
         File releaseNoteFile = new File("release/" + this.version + ".md");
@@ -50,6 +56,10 @@ public class TISVersion {
     }
 
     public TISVersion(String version) {
+        this(version, Optional.empty());
+    }
+
+    public TISVersion(String version, Optional<String> candidateVerion) {
         this.version = version;
         Matcher m = PATTERN_VER.matcher(version);
         if (!m.matches()) {
@@ -62,10 +72,15 @@ public class TISVersion {
         } else {
             releaseVersion = version;
         }
+        this.candidateVerion = candidateVerion;
     }
 
     public final String getVersion() {
         return this.version;
+    }
+
+    public final String getFullVersion() {
+        return this.version + this.candidateVerion.map((c) -> "-" + c).orElse(StringUtils.EMPTY);
     }
 
     @Override

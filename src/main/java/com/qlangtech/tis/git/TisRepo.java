@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.logging.Logger;
 
 import org.kohsuke.github.GHBranch;
 import org.kohsuke.github.GHIssue;
@@ -29,6 +30,7 @@ import org.kohsuke.github.PagedIterable;
  * @create: 2022-10-20 11:51
  **/
 public class TisRepo {
+    // private static final Logger logger = Logger.getLogger(TisRep)
     public final String repository;
     public final String workBranch;
 
@@ -92,9 +94,14 @@ public class TisRepo {
 
 
     public void createTag(TISVersion newTagName) throws IOException {
-        GHTagObject tag = repo.createTag(newTagName.getVersion()
-                , "create new Tag:" + newTagName, this.currnetBranch.getSHA1(), "commit");
-        GHRef ref = repo.createRef("refs/tags/" + tag.getTag(), tag.getSha());
+        try {
+            GHTagObject tag = repo.createTag(newTagName.getFullVersion()
+                    , "create new Tag:" + newTagName.getFullVersion(), this.currnetBranch.getSHA1(), "commit");
+            GHRef ref = repo.createRef("refs/tags/" + tag.getTag(), tag.getSha());
+        } catch (org.kohsuke.github.HttpException e) {
+            // throw new RuntimeException(e);
+            e.printStackTrace();
+        }
     }
 
     enum IssueCategory {
@@ -143,16 +150,16 @@ public class TisRepo {
         IssueCategory category = null;
         List<TISIssue> group = null;
         try {
-          //  Set<String> acceptLabels = new HashSet<>();
+            //  Set<String> acceptLabels = new HashSet<>();
             // acceptLabels.add("3.6.0");
             // acceptLabels.add("3.5.0");
 
-           // acceptLabels.add(GenerateChangList.tagName.versionNum);
+            // acceptLabels.add(GenerateChangList.tagName.versionNum);
 
             List<GHIssue> issues = repo.getIssues(GHIssueState.ALL, this.milestone);
 
             for (GHIssue issue : issues) {
-              //  boolean skip = true;
+                //  boolean skip = true;
                 category = IssueCategory.parse(issue);
 //                for (GHLabel label : issue.getLabels()) {
 //                    if (acceptLabels.contains(label.getName())) {
@@ -179,8 +186,8 @@ public class TisRepo {
 
     public void publishRelease() throws IOException {
 
-        GHReleaseBuilder release = repo.createRelease(tagName.getVersion());
-        release.name("Release " + tagName);
+        GHReleaseBuilder release = repo.createRelease(tagName.getFullVersion());
+        release.name("Release " + tagName.getFullVersion());
         release.body(releaseBody);
         release.commitish(this.currnetBranch.getSHA1());
         release.prerelease(false);

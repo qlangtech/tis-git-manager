@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.kohsuke.github.GitHub;
 import org.kohsuke.github.GitHubBuilder;
@@ -16,7 +17,8 @@ import com.qlangtech.tis.git.TisRepo.TISIssue;
  * @create: 2022-10-20 13:45
  **/
 public class GenerateChangList {
-    public static final TISVersion tagName = new TISVersion("v4.0.0");
+    // Optional.of("rc1")
+    public static final TISVersion tagName = new TISVersion("V4.0.1");
 
     private final GitHub github;
 

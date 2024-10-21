@@ -23,7 +23,7 @@ public class Main {
             , $("qlangtech/update-center2")
             , $("qlangtech/DataX")
             , $("qlangtech/tis-git-manager")
-            , $("qlangtech/flink", "tis-1.13.1")
+            , $("qlangtech/flink", "tis-1.18.1")
             , $("qlangtech/chunjun", "tis-v1.12.5")
             , $("qlangtech/tis-doc")
             , $("qlangtech/hudi", "tis-release-0.10.1")
