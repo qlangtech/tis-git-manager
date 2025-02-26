@@ -33,6 +33,7 @@ public class Main {
             , $("qlangtech/flink"//, RepoLocalDir.$("/opt/misc/flink-1.18.1/flink")
             , "tis-1.18.1")
             , $("qlangtech/chunjun", /* RepoLocalDir.$("/opt/misc/chunjun"),*/ "tis-v1.12.5")
+            , $("qlangtech/dolphinscheduler",  "tis-3.2.2")
             , $("qlangtech/tis-doc"/*, RepoLocalDir.$("/opt/misc/tis-docs2/docs/plugin")*/)
             , $("qlangtech/hudi", "tis-release-0.10.1")
             //, $("qlangtech/zeppelin", "tis-v0.10.1")
