@@ -2,6 +2,7 @@ package com.qlangtech.tis.git;
 
 import org.apache.commons.lang3.StringUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class TisRepo {
     // private static final Logger logger = Logger.getLogger(TisRep)
     public final String repository;
     public final String workBranch;
+    public final RepoLocalDir localDir;
 
     private GHBranch currnetBranch;
     private GitHub github;
@@ -43,21 +45,33 @@ public class TisRepo {
 
     private boolean extractIssues = false;
 
+    public static TisRepo $(String repository, RepoLocalDir localDir) {
+        return new TisRepo(repository, localDir);
+    }
+
     public static TisRepo $(String repository) {
-        return new TisRepo(repository);
+        return new TisRepo(repository, null);
     }
 
     public static TisRepo $(String repository, String workBranch) {
-        return new TisRepo(repository, workBranch);
+        return new TisRepo(repository, null, workBranch);
     }
 
-    private TisRepo(String repository) {
-        this(repository, "master");
+    public static TisRepo $(String repository, RepoLocalDir localDir, String workBranch) {
+        return new TisRepo(repository, localDir, workBranch);
     }
 
-    private TisRepo(String repository, String workBranch) {
+    private TisRepo(String repository, RepoLocalDir localDir) {
+        this(repository, localDir, "master");
+    }
+
+    private TisRepo(String repository, RepoLocalDir localDir, String workBranch) {
         this.repository = repository;
         this.workBranch = workBranch;
+        this.localDir = localDir;
+//        if (!this.localDir.exists()) {
+//            throw new IllegalStateException("localDir:" + this.localDir.getAbsolutePath() + " must be exist");
+//        }
     }
 
     public void initialize(GitHub github, TISVersion tagName, String releaseBody) throws IOException {

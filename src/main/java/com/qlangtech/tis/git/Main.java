@@ -14,20 +14,29 @@ import java.nio.charset.Charset;
 public class Main {
 
     static final TisRepo[] tisRelsRepo = new TisRepo[]{
-            $("qlangtech/tis").shallExtractIssues()
-            , $("qlangtech/plugins")//.shallExtractIssues()
-            , $("qlangtech/ng-tis")
-            , $("qlangtech/tis-archetype-plugin")
-            , $("qlangtech/tis-ansible")
-            , $("qlangtech/tis-git-manager")
-            , $("qlangtech/update-center2")
-            , $("qlangtech/DataX")
-            , $("qlangtech/tis-git-manager")
-            , $("qlangtech/flink", "tis-1.18.1")
-            , $("qlangtech/chunjun", "tis-v1.12.5")
-            , $("qlangtech/tis-doc")
+            $("qlangtech/tis", RepoLocalDir.$("/Users/mozhenghua/j2ee_solution/project/tis-solr")).shallExtractIssues()
+            , $("qlangtech/plugins", RepoLocalDir.$("/Users/mozhenghua/j2ee_solution/project/plugins"))
+            , $("qlangtech/tis-plugins-commercial", RepoLocalDir.$("/opt/misc/tis-plugins-commercial"))
+            , $("qlangtech/ng-tis", RepoLocalDir.$("/Users/mozhenghua/j2ee_solution/project/tis-console"))
+            , $("qlangtech/tis-archetype-plugin", RepoLocalDir.$("/opt/misc/tis-archetype-plugin"))
+            , $("qlangtech/tis-ansible" //, RepoLocalDir.$("/opt/misc/tis-archetype-plugin")
+    )
+            , $("qlangtech/tis-git-manager" //, RepoLocalDir.$("/opt/misc/tis-git-manager")
+    )
+            , $("qlangtech/update-center2", RepoLocalDir.$("/opt/misc/update-center2"))
+            , $("qlangtech/DataX", RepoLocalDir.$("/opt/misc/DataX"))
+            // , $("qlangtech/tis-git-manager")
+            , $("qlangtech/debezium"//, RepoLocalDir.$("/opt/misc/debezium")
+            , "tis.v1.9.8.Final")
+            , $("qlangtech/flink-cdc" //, RepoLocalDir.$("/opt/misc/flink-cdc")
+            , "tis-3.1.0")
+            , $("qlangtech/flink"//, RepoLocalDir.$("/opt/misc/flink-1.18.1/flink")
+            , "tis-1.18.1")
+            , $("qlangtech/chunjun", /* RepoLocalDir.$("/opt/misc/chunjun"),*/ "tis-v1.12.5")
+            , $("qlangtech/tis-doc"/*, RepoLocalDir.$("/opt/misc/tis-docs2/docs/plugin")*/)
             , $("qlangtech/hudi", "tis-release-0.10.1")
-            , $("qlangtech/zeppelin", "tis-v0.10.1")};
+            //, $("qlangtech/zeppelin", "tis-v0.10.1")
+    };
 
 
 //    static final TisRepo[] tisRelsRepo = new TisRepo[]{
@@ -43,7 +52,7 @@ public class Main {
         GenerateChangList changList = new GenerateChangList();
 
         // final String tagName = "v3.6.0-alpha";
-        System.out.println("Start Release Version:"+ GenerateChangList.tagName);
+        System.out.println("Start Release Version:" + GenerateChangList.tagName);
         TISVersion tagName = GenerateChangList.tagName;
         final String releaseBody = FileUtils.readFileToString(new File("release/" + tagName + ".md"), Charset.forName("utf8"));
         // GHRepository repo = github.getRepository("baisui1981/tisearch");
@@ -61,7 +70,7 @@ public class Main {
         for (TisRepo tisRepo : tisRelsRepo) {
             tisRepo.publishRelease();
         }
-        System.out.println("Successful Release Version:"+ GenerateChangList.tagName);
+        System.out.println("Successful Release Version:" + GenerateChangList.tagName);
 //        GHRepository repo = github.createRepository(
 //                "new-repository", "this is my new repository",
 //                "https://github.com/ben2077/tisearch", true/*public*/);
