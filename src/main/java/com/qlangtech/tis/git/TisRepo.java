@@ -111,6 +111,7 @@ public class TisRepo {
         try {
             GHTagObject tag = repo.createTag(newTagName.getFullVersion()
                     , "create new Tag:" + newTagName.getFullVersion(), this.currnetBranch.getSHA1(), "commit");
+            System.out.println("tag sha:" + tag.getSha() + " for tag:" + tag.getTag());
             GHRef ref = repo.createRef("refs/tags/" + tag.getTag(), tag.getSha());
         } catch (org.kohsuke.github.HttpException e) {
             // throw new RuntimeException(e);

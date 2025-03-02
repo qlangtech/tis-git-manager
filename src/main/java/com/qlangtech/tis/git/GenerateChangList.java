@@ -43,12 +43,14 @@ public class GenerateChangList {
 
         // GenerateChangList changList = new GenerateChangList();
         Map<IssueCategory, List<TISIssue>> groupIssue = new HashMap<>();
+        System.out.println("##start to initialize");
         for (TisRepo repo : Main.tisRelsRepo) {
             if (!repo.isExtractIssues()) {
                 continue;
             }
             repo.initialize(this.getGithub(), GenerateChangList.tagName, null);
         }
+        System.out.println("##start to extract issues");
         for (TisRepo repo : Main.tisRelsRepo) {
             if (repo.isExtractIssues()) {
                 repo.processIssues().forEach((key, group) -> {

@@ -16,6 +16,7 @@ public class Main {
     static final TisRepo[] tisRelsRepo = new TisRepo[]{
             $("qlangtech/tis", RepoLocalDir.$("/Users/mozhenghua/j2ee_solution/project/tis-solr")).shallExtractIssues()
             , $("qlangtech/plugins", RepoLocalDir.$("/Users/mozhenghua/j2ee_solution/project/plugins"))
+            , $("qlangtech/tis-sqlserver-plugin", RepoLocalDir.$("/opt/misc/tis-sqlserver-plugin"),"dev")
             , $("qlangtech/tis-plugins-commercial", RepoLocalDir.$("/opt/misc/tis-plugins-commercial"))
             , $("qlangtech/ng-tis", RepoLocalDir.$("/Users/mozhenghua/j2ee_solution/project/tis-console"))
             , $("qlangtech/tis-archetype-plugin", RepoLocalDir.$("/opt/misc/tis-archetype-plugin"))
@@ -32,7 +33,7 @@ public class Main {
             , "tis-3.1.0")
             , $("qlangtech/flink"//, RepoLocalDir.$("/opt/misc/flink-1.18.1/flink")
             , "tis-1.18.1")
-            , $("qlangtech/chunjun", /* RepoLocalDir.$("/opt/misc/chunjun"),*/ "tis-v1.12.5")
+            , $("qlangtech/chunjun",  RepoLocalDir.$("/opt/misc/chunjun"), "tis-v1.12.5")
             , $("qlangtech/dolphinscheduler",  "tis-3.2.2")
             , $("qlangtech/tis-doc"/*, RepoLocalDir.$("/opt/misc/tis-docs2/docs/plugin")*/)
             , $("qlangtech/hudi", "tis-release-0.10.1")
@@ -60,16 +61,19 @@ public class Main {
         System.out.println("1. Initialize");
         for (TisRepo tisRepo : tisRelsRepo) {
             tisRepo.initialize(changList.getGithub(), tagName, releaseBody);
+            System.out.println("## init module:"+tisRepo.repository);
         }
 
         System.out.println("2. Create Tag");
         for (TisRepo tisRepo : tisRelsRepo) {
             tisRepo.createTag(tagName);
+            System.out.println("## create tag for module:"+tisRepo.repository);
         }
 
         System.out.println("3. Publish Release");
         for (TisRepo tisRepo : tisRelsRepo) {
             tisRepo.publishRelease();
+            System.out.println("## push release for module:"+tisRepo.repository);
         }
         System.out.println("Successful Release Version:" + GenerateChangList.tagName);
 //        GHRepository repo = github.createRepository(
