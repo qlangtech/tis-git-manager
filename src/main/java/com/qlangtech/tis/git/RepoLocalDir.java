@@ -19,4 +19,13 @@ public class RepoLocalDir {
             throw new IllegalStateException("localDir:" + this.localDir.getAbsolutePath() + " must be exist");
         }
     }
+
+    /**
+     * 本地仓库地址
+     *
+     * @return
+     */
+    public File getDir() {
+        return this.localDir;
+    }
 }

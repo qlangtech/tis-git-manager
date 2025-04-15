@@ -18,13 +18,18 @@ import com.qlangtech.tis.git.TisRepo.TISIssue;
  **/
 public class GenerateChangList {
     // Optional.of("rc1")
-    public static final TISVersion tagName = new TISVersion("v4.2.0");
+
+    public static final String newVer = "4.2.0";
+    public static final String oldVer = newVer + "-SNAPSHOT";
+
+    public static final TISVersion tagName = new TISVersion("v" + newVer);
 
     private final GitHub github;
 
 
     public GenerateChangList() {
         try {
+
             this.github = GitHubBuilder.fromPropertyFile().build();
         } catch (IOException e) {
             throw new RuntimeException(e);

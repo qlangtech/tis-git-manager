@@ -35,6 +35,10 @@ public class TisRepo {
     public final String repository;
     public final String workBranch;
     public final RepoLocalDir localDir;
+    /**
+     * 更新本地策略，提交远程仓库策略
+     */
+    public final RepoSync repoSync;
 
     private GHBranch currnetBranch;
     private GitHub github;
@@ -45,30 +49,31 @@ public class TisRepo {
 
     private boolean extractIssues = false;
 
-    public static TisRepo $(String repository, RepoLocalDir localDir) {
-        return new TisRepo(repository, localDir);
+    public static TisRepo $(String repository, RepoLocalDir localDir, RepoSync repoSync) {
+        return new TisRepo(repository, localDir, repoSync);
     }
 
-    public static TisRepo $(String repository) {
-        return new TisRepo(repository, null);
+    public static TisRepo $(String repository, RepoSync repoSync) {
+        return new TisRepo(repository, null, repoSync);
     }
 
-    public static TisRepo $(String repository, String workBranch) {
-        return new TisRepo(repository, null, workBranch);
+    public static TisRepo $(String repository, String workBranch, RepoSync repoSync) {
+        return new TisRepo(repository, null, workBranch, repoSync);
     }
 
-    public static TisRepo $(String repository, RepoLocalDir localDir, String workBranch) {
-        return new TisRepo(repository, localDir, workBranch);
+    public static TisRepo $(String repository, RepoLocalDir localDir, String workBranch, RepoSync repoSync) {
+        return new TisRepo(repository, localDir, workBranch, repoSync);
     }
 
-    private TisRepo(String repository, RepoLocalDir localDir) {
-        this(repository, localDir, "master");
+    private TisRepo(String repository, RepoLocalDir localDir, RepoSync repoSync) {
+        this(repository, localDir, "master", repoSync);
     }
 
-    private TisRepo(String repository, RepoLocalDir localDir, String workBranch) {
+    private TisRepo(String repository, RepoLocalDir localDir, String workBranch, RepoSync repoSync) {
         this.repository = repository;
         this.workBranch = workBranch;
         this.localDir = localDir;
+        this.repoSync = repoSync;
 //        if (!this.localDir.exists()) {
 //            throw new IllegalStateException("localDir:" + this.localDir.getAbsolutePath() + " must be exist");
 //        }
