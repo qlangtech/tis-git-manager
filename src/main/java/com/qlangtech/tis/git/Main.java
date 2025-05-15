@@ -1,12 +1,11 @@
 package com.qlangtech.tis.git;
 
-import static com.qlangtech.tis.git.RepoSync.ChunjunPOM;
-import static com.qlangtech.tis.git.TisRepo.$;
-
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.nio.charset.Charset;
+
+import static com.qlangtech.tis.git.TisRepo.$;
 
 /**
  * @author: 百岁（baisui@qlangtech.com）

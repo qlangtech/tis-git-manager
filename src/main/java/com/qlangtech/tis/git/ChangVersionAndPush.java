@@ -31,6 +31,9 @@ import static com.qlangtech.tis.git.GenerateChangList.oldVer;
 public class ChangVersionAndPush {
     public static void main(String[] args) throws Exception {
         File successLog = new File(".tmp/changVersionAndPush_" + newVer + ".log");
+        if (!successLog.exists()) {
+            FileUtils.touch(successLog);
+        }
         Set<String> passedRepos = new HashSet<>(FileUtils.readLines(successLog, StandardCharsets.UTF_8));
         try (PrintWriter successWrite = new PrintWriter(FileUtils.openOutputStream(successLog, true))) {
 
