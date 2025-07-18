@@ -94,7 +94,7 @@ public class ChangVersionAndPush {
                 line = lineIt.nextLine();
 
                 if (!findRevision && (matcher = PATTERN_VERSION.matcher(line)).find()) {
-                    writer.println(matcher.replaceFirst("tis_pkg_version: " + newVer));
+                    writer.println(matcher.replaceFirst("tis_pkg_version: \"" + newVer + "\""));
                     findRevision = true;
                 } else {
                     writer.println(line);

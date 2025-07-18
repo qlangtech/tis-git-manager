@@ -17,6 +17,7 @@ public class Main {
             $("qlangtech/tis", RepoLocalDir.$("/Users/mozhenghua/j2ee_solution/project/tis-solr"), RepoSync.Revions).shallExtractIssues()
             , $("qlangtech/plugins", RepoLocalDir.$("/Users/mozhenghua/j2ee_solution/project/plugins"), RepoSync.Revions)
             , $("qlangtech/tis-sqlserver-plugin", RepoLocalDir.$("/opt/misc/tis-sqlserver-plugin"), "dev", RepoSync.Revions)
+            , $("qlangtech/tis-paimon-plugin", RepoLocalDir.$("/opt/misc/tis-paimon-plugin"), RepoSync.Revions)
             , $("qlangtech/tis-plugins-commercial", RepoLocalDir.$("/opt/misc/tis-plugins-commercial"), RepoSync.Revions)
             , $("qlangtech/ng-tis", RepoLocalDir.$("/Users/mozhenghua/j2ee_solution/project/tis-console"), RepoSync.JustCommitPush)
             , $("qlangtech/tis-archetype-plugin", RepoLocalDir.$("/opt/misc/tis-archetype-plugin"), RepoSync.Revions)
