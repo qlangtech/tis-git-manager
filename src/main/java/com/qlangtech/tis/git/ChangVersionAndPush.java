@@ -29,6 +29,12 @@ import static com.qlangtech.tis.git.GenerateChangList.oldVer;
  * @create: 2025-04-14 19:59
  **/
 public class ChangVersionAndPush {
+    /**
+     * 启动执行前必须要设置环境变量：GIT_SSH=/usr/bin/ssh
+     *
+     * @param args
+     * @throws Exception
+     */
     public static void main(String[] args) throws Exception {
 
         File successLog = new File(".tmp/changVersionAndPush_" + newVer + ".log");
