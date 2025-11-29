@@ -52,6 +52,11 @@ public class Main {
         // Once your ~/.github property file is properly configured, you can obtain a GitHub instance using
         GenerateChangList changList = new GenerateChangList();
 
+        // 首先需要校验证本地仓库中是否还存在没有deploy的内容
+        for (TisRepo tisRepo : tisRelsRepo) {
+
+        }
+
         // final String tagName = "v3.6.0-alpha";
         System.out.println("Start Release Version:" + GenerateChangList.tagName);
         TISVersion tagName = GenerateChangList.tagName;
