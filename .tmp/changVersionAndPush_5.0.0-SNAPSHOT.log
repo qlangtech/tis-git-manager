@@ -1,10 +1,7 @@
 qlangtech/tis
 qlangtech/plugins
+qlangtech/tis-dameng-plugin
 qlangtech/tis-sqlserver-plugin
+qlangtech/tis-paimon-plugin
 qlangtech/tis-plugins-commercial
 qlangtech/ng-tis
-qlangtech/tis-archetype-plugin
-qlangtech/update-center2
-qlangtech/DataX
-qlangtech/tis-ansible
-qlangtech/chunjun

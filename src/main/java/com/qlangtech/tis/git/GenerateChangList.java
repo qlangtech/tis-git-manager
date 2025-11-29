@@ -22,8 +22,8 @@ public class GenerateChangList {
 //    public static final String newVer = "4.2.1";
 //    public static final String oldVer = newVer + "-SNAPSHOT";
 
-    public static final String newVer = "4.3.0";
-    public static final String oldVer = "4.3.0-SNAPSHOT";
+    public static final String newVer = "5.0.0-SNAPSHOT";
+    public static final String oldVer = "4.3.0";
 
     public static final TISVersion tagName = new TISVersion("v" + newVer);
 

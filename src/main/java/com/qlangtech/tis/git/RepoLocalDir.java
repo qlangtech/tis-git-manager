@@ -28,4 +28,8 @@ public class RepoLocalDir {
     public File getDir() {
         return this.localDir;
     }
+
+    public boolean exist() {
+        return this.getDir().exists();
+    }
 }
