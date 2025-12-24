@@ -109,7 +109,8 @@ public class ChangVersionAndPush {
         }
 
         if (!findRevision) {
-            throw new IllegalStateException("have not find pattern:" + PATTERN_VERSION + " in " + fileVars + " file:" + varsFile.getAbsolutePath());
+            throw new IllegalStateException( //
+                    "have not find pattern:" + PATTERN_VERSION + " in " + fileVars + " file:" + varsFile.getAbsolutePath());
         }
         File versionBackup = new File(ansibleProject, fileVars + ".versionBackup");
         FileUtils.deleteQuietly(versionBackup);
@@ -173,8 +174,8 @@ public class ChangVersionAndPush {
                     pattern = patternMach.getValue();
                     elementName = patternMach.getKey();
                     if (!findRevision && (matcher = pattern.matcher(line)).find()) {
-                        writer.println(matcher.replaceFirst("<" + elementName + ">" + newVer + "</" + elementName +
-                                ">"));
+                        writer.println(matcher //
+                                .replaceFirst("<" + elementName + ">" + newVer + "</" + elementName + ">"));
                         findRevision = true;
                         continue nextline;
                     } else {
@@ -197,7 +198,9 @@ public class ChangVersionAndPush {
             }
         }
         if (!findRevision) {
-            throw new IllegalStateException("have not find pattern:" + patternMatchs.stream().map((match) -> String.valueOf(match.getValue())).collect(Collectors.joining(" or ")) + " in pom file:" + pomFile.getAbsolutePath());
+            throw new IllegalStateException("have not find pattern:" + patternMatchs.stream()//
+                    .map((match) -> String.valueOf(match.getValue()))//
+                    .collect(Collectors.joining(" or ")) + " in pom file:" + pomFile.getAbsolutePath());
         }
         File versionBackup = new File(pomDir, "pom.xml.versionBackup");
         FileUtils.deleteQuietly(versionBackup);
