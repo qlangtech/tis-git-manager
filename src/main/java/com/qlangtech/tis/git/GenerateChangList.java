@@ -28,7 +28,13 @@ public class GenerateChangList {
     public static final TISVersion tagName = new TISVersion("v" + newVer);
 
     private final GitHub github;
+    public static void main(String[] args) throws Exception {
+        GenerateChangList changeList = new GenerateChangList();
 
+        changeList.generate();
+        // System.out.println(groupIssue);
+        // final String releaseBody = FileUtils.readFileToString(releaseNoteFile, Charset.forName("utf8"));
+    }
 
     public GenerateChangList() {
         try {
@@ -88,11 +94,11 @@ public class GenerateChangList {
         content.append("[安装说明](https://tis.pub/docs/install/tis/uber/)\n");
 
         content.append("* [").append("TIS Flink Standalone Package").append("](")
-                .append("http://tis-release.oss-cn-beijing.aliyuncs.com/").append(tagName.versionNum).append("/tis/flink-tis-1.13.1-bin.tar.gz").append(") ");
+                .append("http://tis-release.oss-cn-beijing.aliyuncs.com/").append(tagName.versionNum).append("/tis/flink-tis-1.20.1-bin.tar.gz").append(") ");
         content.append("[安装说明](https://tis.pub/docs/install/flink-cluster/standalone/)\n");
 
-        content.append("* ").append("TIS Zeppeline NoteBook Installation");
-        content.append("[安装说明](https://tis.pub/docs/install/zeppelin)\n");
+//        content.append("* ").append("TIS Zeppeline NoteBook Installation");
+//        content.append("[安装说明](https://tis.pub/docs/install/zeppelin)\n");
 
 
         content.append("\n## ").append("Related Projects").append("\n\n");
@@ -107,13 +113,7 @@ public class GenerateChangList {
     }
 
 
-    public static void main(String[] args) throws Exception {
-        GenerateChangList changeList = new GenerateChangList();
 
-        changeList.generate();
-        // System.out.println(groupIssue);
-        // final String releaseBody = FileUtils.readFileToString(releaseNoteFile, Charset.forName("utf8"));
-    }
 
 
 }
